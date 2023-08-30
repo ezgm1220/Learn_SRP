@@ -58,14 +58,16 @@
     <Analyzer Include="D:\UnityEditor\2022.3.5f1c1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\M_Pipeline\CameraRenderer.Editor.cs" />
     <Compile Include="Assets\M_Pipeline\CameraRenderer.cs" />
     <Compile Include="Assets\M_Pipeline\M_pipelineAset.cs" />
     <Compile Include="Assets\M_Pipeline\M_Pipeline.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Shaders\Test_2.shader" />
-    <None Include="Assets\Shaders\Test.shader" />
-    <None Include="Assets\Shaders\NewUnlitShader.shader" />
+    <None Include="Assets\Shaders\UnlitPass.hlsl" />
+    <None Include="Assets\Shaders\ShaderLibrary\Common.hlsl" />
+    <None Include="Assets\Shaders\CustomShader.shader" />
+    <None Include="Assets\Shaders\ShaderLibrary\UnityInput.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public class CameraRenderer
+public partial class CameraRenderer
 {
     ScriptableRenderContext context;
 
@@ -21,14 +21,19 @@ public class CameraRenderer
         this.context = context;
         this.camera = camera;
 
-        Setup();
+        PrepareBuffer();
 
         if (!Cull())
         {
             return;
         }
 
+        Setup();
+
         DrawVisibleGeometry();
+
+        // 绘制线框
+        DrawGizmos();
 
         Submit();
     }
@@ -53,8 +58,12 @@ public class CameraRenderer
     void Setup()
     {
         context.SetupCameraProperties(camera);
-        buffer.ClearRenderTarget(true, true, Color.clear);
-        buffer.BeginSample(bufferName);
+        //得到相机的clear flags
+        CameraClearFlags flags = camera.clearFlags;
+        //设置相机清除状态
+        buffer.ClearRenderTarget(flags <= CameraClearFlags.Depth, flags == CameraClearFlags.Color,
+            flags == CameraClearFlags.Color ? camera.backgroundColor.linear : Color.clear);
+        buffer.BeginSample(SampleName);
         ExecuteBuffer();
     }
 
@@ -91,7 +100,7 @@ public class CameraRenderer
 
     void Submit()
     {
-        buffer.EndSample(bufferName);
+        buffer.EndSample(SampleName);
         ExecuteBuffer();
         context.Submit();
     }
