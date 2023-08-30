@@ -9,9 +9,11 @@ float4 ver(float3 positionOS : POSITION):SV_POSITION
 	return TransformWorldToHClip(positionWS);
 }
 
-void fra()
+float4 _BaseColor;
+
+float4 fra() : SV_TARGET
 {
-	
+	return _BaseColor;	
 }
 
 #endif
