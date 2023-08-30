@@ -16,7 +16,8 @@ public partial class CameraRenderer
         name = bufferName
     };
 
-    public void Render(ScriptableRenderContext context, Camera camera)
+    public void Render(ScriptableRenderContext context, Camera camera, 
+        bool useDynamicBatching, bool useGPUInstancing)
     {
         this.context = context;
         this.camera = camera;
@@ -30,7 +31,7 @@ public partial class CameraRenderer
 
         Setup();
 
-        DrawVisibleGeometry();
+        DrawVisibleGeometry(useDynamicBatching, useGPUInstancing);
 
         // 绘制线框
         DrawGizmos();
@@ -67,16 +68,21 @@ public partial class CameraRenderer
         ExecuteBuffer();
     }
 
-    void DrawVisibleGeometry()
+    void DrawVisibleGeometry(bool useDynamicBatching, bool useGPUInstancing)
     {
         // 设置绘制顺序和指定渲染相机
         var sortingSettings = new SortingSettings(camera)
         {
             criteria = SortingCriteria.CommonOpaque
         };
-        
+
         // 设置渲染的Shader Pass和排序模式
-        var drawingSettings = new DrawingSettings(unlitShaderTagId,sortingSettings);
+        var drawingSettings = new DrawingSettings(unlitShaderTagId, sortingSettings)
+        {
+            //设置渲染时批处理的使用状态
+            enableDynamicBatching = useDynamicBatching,
+            enableInstancing = useGPUInstancing
+        };
         
         // 只绘制 RebderQueue 为 opaque 不透明的物体
         var filteringSettings = new FilteringSettings(RenderQueueRange.opaque);
