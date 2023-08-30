@@ -7,6 +7,12 @@ public class M_RenderPipeline : RenderPipeline
 {
 
     CameraRenderer renderer = new CameraRenderer();
+
+    // 使用SRP合批
+    public M_RenderPipeline()
+    {
+        GraphicsSettings.useScriptableRenderPipelineBatching = true;    
+    }
     protected override void Render(ScriptableRenderContext context, Camera[] cameras)
     {
         foreach (Camera camera in cameras)
@@ -15,6 +21,5 @@ public class M_RenderPipeline : RenderPipeline
         }
 
     }
-   
    
 }
