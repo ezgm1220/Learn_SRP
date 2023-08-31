@@ -1,10 +1,10 @@
 #ifndef CUSTOM_UNLIT_PASS_INCLUDED
 #define CUSTOM_UNLIT_PASS_INCLUDED
 
-#include "ShaderLibrary/Common.hlsl"
-#include "ShaderLibrary/Surface.hlsl"
-#include "ShaderLibrary/Light.hlsl"
-#include "ShaderLibrary/Lighting.hlsl"
+#include "../ShaderLibrary/Common.hlsl"
+#include "../ShaderLibrary/Surface.hlsl"
+#include "../ShaderLibrary/Light.hlsl"
+#include "../ShaderLibrary/Lighting.hlsl"
 
 TEXTURE2D(_BaseMap);
 SAMPLER(sampler_BaseMap);

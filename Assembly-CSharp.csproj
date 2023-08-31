@@ -58,24 +58,24 @@
     <Analyzer Include="D:\UnityEditor\2022.3.6f1c1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\M_Pipeline\Lighting.cs" />
-    <Compile Include="Assets\M_Pipeline\CameraRenderer.Editor.cs" />
+    <Compile Include="Assets\Runtime\M_Pipeline.cs" />
+    <Compile Include="Assets\Runtime\M_pipelineAset.cs" />
+    <Compile Include="Assets\Runtime\CameraRenderer.cs" />
     <Compile Include="Assets\Examples\PerObjectMaterialProperties.cs" />
     <Compile Include="Assets\Examples\MeshBall.cs" />
-    <Compile Include="Assets\M_Pipeline\CameraRenderer.cs" />
-    <Compile Include="Assets\M_Pipeline\M_pipelineAset.cs" />
-    <Compile Include="Assets\M_Pipeline\M_Pipeline.cs" />
+    <Compile Include="Assets\Runtime\CameraRenderer.Editor.cs" />
+    <Compile Include="Assets\Runtime\Lighting.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\Lit.shader" />
-    <None Include="Assets\Shaders\ShaderLibrary\Surface.hlsl" />
-    <None Include="Assets\Shaders\ShaderLibrary\Lighting.hlsl" />
-    <None Include="Assets\Shaders\ShaderLibrary\Light.hlsl" />
+    <None Include="Assets\ShaderLibrary\Surface.hlsl" />
+    <None Include="Assets\ShaderLibrary\Lighting.hlsl" />
+    <None Include="Assets\ShaderLibrary\Light.hlsl" />
     <None Include="Assets\Shaders\UnlitPass.hlsl" />
-    <None Include="Assets\Shaders\ShaderLibrary\Common.hlsl" />
+    <None Include="Assets\ShaderLibrary\Common.hlsl" />
     <None Include="Assets\Shaders\LitPass.hlsl" />
     <None Include="Assets\Shaders\CustomShader.shader" />
-    <None Include="Assets\Shaders\ShaderLibrary\UnityInput.hlsl" />
+    <None Include="Assets\ShaderLibrary\UnityInput.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
