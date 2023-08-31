@@ -16,6 +16,8 @@ public partial class CameraRenderer
         name = bufferName
     };
 
+    Lighting lighting = new Lighting();
+
     public void Render(ScriptableRenderContext context, Camera camera, 
         bool useDynamicBatching, bool useGPUInstancing)
     {
@@ -31,8 +33,10 @@ public partial class CameraRenderer
 
         Setup();
 
+        // 设置灯光
+        lighting.Setup(context);
+        // 绘制几何体
         DrawVisibleGeometry(useDynamicBatching, useGPUInstancing);
-
         // 绘制线框
         DrawGizmos();
 
@@ -41,7 +45,7 @@ public partial class CameraRenderer
 
     CullingResults cullingResults;
     static ShaderTagId unlitShaderTagId = new ShaderTagId("SRPDefaultUnlit");
-
+    static ShaderTagId litShaderTagId = new ShaderTagId("CustomLit");
 
     bool Cull()
     {
@@ -83,7 +87,10 @@ public partial class CameraRenderer
             enableDynamicBatching = useDynamicBatching,
             enableInstancing = useGPUInstancing
         };
-        
+
+        // 渲染CustomLit表示的pass块
+        drawingSettings.SetShaderPassName(1, litShaderTagId);
+
         // 只绘制 RebderQueue 为 opaque 不透明的物体
         var filteringSettings = new FilteringSettings(RenderQueueRange.opaque);
 
