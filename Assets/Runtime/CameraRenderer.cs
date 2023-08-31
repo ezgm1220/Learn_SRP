@@ -34,7 +34,7 @@ public partial class CameraRenderer
         Setup();
 
         // 设置灯光
-        lighting.Setup(context);
+        lighting.Setup(context, cullingResults);
         // 绘制几何体
         DrawVisibleGeometry(useDynamicBatching, useGPUInstancing);
         // 绘制线框
