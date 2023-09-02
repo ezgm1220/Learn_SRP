@@ -71,6 +71,7 @@
     <None Include="Assets\ShaderLibrary\Surface.hlsl" />
     <None Include="Assets\ShaderLibrary\Lighting.hlsl" />
     <None Include="Assets\ShaderLibrary\Light.hlsl" />
+    <None Include="Assets\ShaderLibrary\BRDF.hlsl" />
     <None Include="Assets\Shaders\UnlitPass.hlsl" />
     <None Include="Assets\ShaderLibrary\Common.hlsl" />
     <None Include="Assets\Shaders\LitPass.hlsl" />
