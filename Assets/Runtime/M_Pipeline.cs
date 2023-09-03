@@ -8,11 +8,14 @@ public class M_RenderPipeline : RenderPipeline
 
     CameraRenderer renderer = new CameraRenderer();
     bool useDynamicBatching, useGPUInstancing;
-    // 使用SRP合批
-    public M_RenderPipeline(bool useDynamicBatching, bool useGPUInstancing, bool useSRPBatcher)
+    //阴影的配置
+    ShadowSettings shadowSettings;
+    public M_RenderPipeline(bool useDynamicBatching, bool useGPUInstancing, bool useSRPBatcher, ShadowSettings shadowSettings)
     {
         this.useDynamicBatching = useDynamicBatching;
         this.useGPUInstancing = useGPUInstancing;
+        this.shadowSettings = shadowSettings;
+
         GraphicsSettings.useScriptableRenderPipelineBatching = useSRPBatcher;
         // 灯光转换到线性空间
         GraphicsSettings.lightsUseLinearIntensity = true;
@@ -21,7 +24,7 @@ public class M_RenderPipeline : RenderPipeline
     {
         foreach (Camera camera in cameras)
         {
-            renderer.Render(context, camera, useDynamicBatching, useGPUInstancing);
+            renderer.Render(context, camera, useDynamicBatching, useGPUInstancing, shadowSettings);
         }
 
     }

@@ -7,11 +7,13 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class PerObjectMaterialProperties : MonoBehaviour
 {
+    // 获取shader中Properties中声明的变量
     static int baseColorId = Shader.PropertyToID("_BaseColor");
     static int cutoffId = Shader.PropertyToID("_Cutoff");
     static int metallicId = Shader.PropertyToID("_Metallic");
     static int smoothnessId = Shader.PropertyToID("_Smoothness");
 
+    // 创建调整数值的UI(在脚本内)
     [SerializeField]
     Color baseColor = Color.white;
     [SerializeField, Range(0f, 1f)]
@@ -35,7 +37,7 @@ public class PerObjectMaterialProperties : MonoBehaviour
         block.SetFloat(cutoffId, cutoff);
         block.SetFloat(metallicId, metallic);
         block.SetFloat(smoothnessId, smoothness);
-        GetComponent<Renderer>().SetPropertyBlock(block);
+        GetComponent<Renderer>().SetPropertyBlock(block);// 开始重写参数
     }
     void Awake()
     {

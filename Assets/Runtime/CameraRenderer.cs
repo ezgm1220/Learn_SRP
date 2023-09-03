@@ -19,26 +19,33 @@ public partial class CameraRenderer
     Lighting lighting = new Lighting();
 
     public void Render(ScriptableRenderContext context, Camera camera, 
-        bool useDynamicBatching, bool useGPUInstancing)
+        bool useDynamicBatching, bool useGPUInstancing, ShadowSettings shadowSettings)
     {
         this.context = context;
         this.camera = camera;
 
         PrepareBuffer();
 
-        if (!Cull())
+        if (!Cull(shadowSettings.maxDistance))
         {
             return;
         }
+        
+        buffer.BeginSample(SampleName);
+        ExecuteBuffer();
+
+        //光源数据和阴影数据发送到GPU计算光照
+        lighting.Setup(context, cullingResults, shadowSettings);
+        buffer.EndSample(SampleName);
 
         Setup();
 
-        // 设置灯光
-        lighting.Setup(context, cullingResults);
         // 绘制几何体
         DrawVisibleGeometry(useDynamicBatching, useGPUInstancing);
         // 绘制线框
         DrawGizmos();
+        // 释放申请的阴影贴图RT的内存
+        lighting.Cleanup();
 
         Submit();
     }
@@ -47,16 +54,16 @@ public partial class CameraRenderer
     static ShaderTagId unlitShaderTagId = new ShaderTagId("SRPDefaultUnlit");
     static ShaderTagId litShaderTagId = new ShaderTagId("CustomLit");
 
-    bool Cull()
+    bool Cull(float maxShadowDistance)
     {
-        ScriptableCullingParameters p;
-
-        if(camera.TryGetCullingParameters(out p))
+        if (camera.TryGetCullingParameters(out ScriptableCullingParameters p))
         {
+            //得到最大阴影距离,和相机远截面作比较，取最小的那个作为阴影距离
+            p.shadowDistance = Mathf.Min(maxShadowDistance, camera.farClipPlane);
             cullingResults = context.Cull(ref p);
             return true;
         }
-        return false;   
+        return false;
     }
 
 

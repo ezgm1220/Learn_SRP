@@ -1,9 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
-/// <summary>
-/// ¿©’π≤ƒ÷ √Ê∞Â
-/// </summary>
+
 public class CustomShaderGUI : ShaderGUI
 {
     MaterialEditor editor;

@@ -26,14 +26,26 @@ public class Lighting
     static Vector4[] dirLightColors = new Vector4[maxDirLightCount];
     static Vector4[] dirLightDirections = new Vector4[maxDirLightCount];
 
+    // 定义阴影类
+    Shadows shadows = new Shadows();
+    static int dirLightShadowDataId = Shader.PropertyToID("_DirectionalLightShadowData");
+    //存储阴影数据
+    static Vector4[] dirLightShadowData = new Vector4[maxDirLightCount];
+
     //初始化设置
-    public void Setup(ScriptableRenderContext context, CullingResults cullingResults)
+    public void Setup(ScriptableRenderContext context, CullingResults cullingResults, ShadowSettings shadowSettings)
     {
         this.cullingResults = cullingResults;
         buffer.BeginSample(bufferName);
+
+        //阴影的初始化设置
+        shadows.Setup(context, cullingResults, shadowSettings);
         //// 发送数据
         //SetupDirectionalLight();
         SetupLights();
+        // 渲染阴影
+        shadows.Render();
+
         buffer.EndSample(bufferName);
         context.ExecuteCommandBuffer(buffer);
         buffer.Clear();
@@ -45,6 +57,11 @@ public class Lighting
         dirLightColors[index] = visibleLight.finalColor;
         // 通过VisibleLight.localToWorldMatrix属性找到前向矢量,它在矩阵第三列，还要进行取反
         dirLightDirections[index] = -visibleLight.localToWorldMatrix.GetColumn(2);
+
+        shadows.ReserveDirectionalShadows(visibleLight.light, index);
+
+        //存储阴影数据
+        dirLightShadowData[index] = shadows.ReserveDirectionalShadows(visibleLight.light, index);
     }
 
     void SetupLights()
@@ -72,10 +89,15 @@ public class Lighting
         buffer.SetGlobalInt(dirLightCountId, dirLightCount);
         buffer.SetGlobalVectorArray(dirLightColorsId, dirLightColors);
         buffer.SetGlobalVectorArray(dirLightDirectionsId, dirLightDirections);
+        buffer.SetGlobalVectorArray(dirLightShadowDataId, dirLightShadowData);
 
     }
 
-   
 
-    
+    //释放申请的RT内存
+    public void Cleanup()
+    {
+        shadows.Cleanup();
+    }
+
 }

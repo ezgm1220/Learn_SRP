@@ -58,7 +58,9 @@
     <Analyzer Include="D:\UnityEditor\2022.3.6f1c1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Settings\ShadowSettings.cs" />
     <Compile Include="Assets\Edito\CustomShaderGUI.cs" />
+    <Compile Include="Assets\Runtime\Shadows.cs" />
     <Compile Include="Assets\Runtime\M_Pipeline.cs" />
     <Compile Include="Assets\Runtime\M_pipelineAset.cs" />
     <Compile Include="Assets\Runtime\CameraRenderer.cs" />
@@ -74,9 +76,11 @@
     <None Include="Assets\ShaderLibrary\Light.hlsl" />
     <None Include="Assets\ShaderLibrary\BRDF.hlsl" />
     <None Include="Assets\Shaders\UnlitPass.hlsl" />
+    <None Include="Assets\Shaders\ShadowCasterPass.hlsl" />
     <None Include="Assets\ShaderLibrary\Common.hlsl" />
     <None Include="Assets\Shaders\LitPass.hlsl" />
     <None Include="Assets\Shaders\CustomShader.shader" />
+    <None Include="Assets\ShaderLibrary\Shadows.hlsl" />
     <None Include="Assets\ShaderLibrary\UnityInput.hlsl" />
   </ItemGroup>
   <ItemGroup>

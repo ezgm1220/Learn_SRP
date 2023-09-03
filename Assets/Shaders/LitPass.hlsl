@@ -3,6 +3,7 @@
 
 #include "../ShaderLibrary/Common.hlsl"
 #include "../ShaderLibrary/Surface.hlsl"
+#include "../ShaderLibrary/Shadows.hlsl"
 #include "../ShaderLibrary/Light.hlsl"
 #include "../ShaderLibrary/BRDF.hlsl"
 #include "../ShaderLibrary/Lighting.hlsl"
@@ -73,6 +74,7 @@ float4 LitFra(Varyings input) : SV_TARGET
 #endif
 	//定义一个surface并填充属性
 	Surface surface;
+	surface.position = input.positionWS;
 	surface.normal = normalize(input.normalWS);
 	//得到视角方向
 	surface.viewDirection = normalize(_WorldSpaceCameraPos - input.positionWS);

@@ -8,6 +8,8 @@ struct Surface {
 	float metallic;
 	float smoothness;
 
+	//±Ì√ÊŒª÷√
+    float3 position;
 	float3 viewDirection;
 };
 

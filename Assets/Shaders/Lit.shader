@@ -21,7 +21,7 @@ Shader "Custom/Lit"
     }
     SubShader
     {
-       Pass
+        Pass
         {
 		   Tags {
 				"LightMode" = "CustomLit"
@@ -42,6 +42,24 @@ Shader "Custom/Lit"
 		   //插入相关hlsl代码
            #include"LitPass.hlsl"
            ENDHLSL
+        }
+
+		Pass
+        {
+            Tags 
+            {
+                "LightMode" = "ShadowCaster"
+            }
+            ColorMask 0
+
+                HLSLPROGRAM
+                #pragma target 3.5
+                #pragma shader_feature _CLIPPING
+                #pragma multi_compile_instancing
+                #pragma vertex ShadowVer
+                #pragma fragment ShadowFra
+                #include "ShadowCasterPass.hlsl"
+                ENDHLSL
         }
     }
     CustomEditor "CustomShaderGUI"
