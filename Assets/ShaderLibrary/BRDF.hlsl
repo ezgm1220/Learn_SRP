@@ -28,6 +28,11 @@ BRDF GetBRDF (Surface surface, bool applyAlphaToDiffuse = false) {
 	float oneMinusReflectivity = OneMinusReflectivity(surface.metallic);
 
 	brdf.diffuse = surface.color * oneMinusReflectivity;
+	//透明度预乘
+	if (applyAlphaToDiffuse) {
+		brdf.diffuse *= surface.alpha;
+	}
+
 	brdf.specular = lerp(MIN_REFLECTIVITY, surface.color, surface.metallic);
 
 	//光滑度转为实际粗糙度

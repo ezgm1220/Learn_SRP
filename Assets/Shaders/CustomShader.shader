@@ -33,5 +33,5 @@ Shader "Custom/CustomShader"
             ENDHLSL
         }
     }
-    
+    CustomEditor "CustomShaderGUI"
 }
